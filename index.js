@@ -1,1 +1,0 @@
-<script src="Peta Kab. Gorontalo.html"></script>
