@@ -1,0 +1,840 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css"><link rel="stylesheet" href="css/L.Control.Locate.min.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <link rel="stylesheet" href="css/leaflet-search.css">
+        <link rel="stylesheet" href="css/filter.css">
+<link rel="stylesheet" href="css/nouislider.min.css">
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title>Peta Gorontalo</title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script><script src="js/L.Control.Locate.min.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="js/leaflet-search.js"></script>
+        <script src="js/tailDT.js"></script>
+<script src="js/nouislider.min.js"></script>
+<script src="js/wNumb.js"></script>
+        <script src="data/ADMINISTRASIKECAMATAN_AR_50K_0.js"></script>
+        <script src="data/ADMINISTRASIKECAMATAN_LN_50K_1.js"></script>
+        <script src="data/RUMAHSAKIT_PT_50K_2.js"></script>
+        <script src="data/PUSKESMAS_PT_50K_3.js"></script>
+        <script>
+        var highlightLayer;
+        function highlightFeature(e) {
+            highlightLayer = e.target;
+
+            if (e.target.feature.geometry.type === 'LineString') {
+              highlightLayer.setStyle({
+                color: '#ffff00',
+              });
+            } else {
+              highlightLayer.setStyle({
+                fillColor: '#ffff00',
+                fillOpacity: 1
+              });
+            }
+        }
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        }).fitBounds([[0.4756009067675435,122.376915949891],[0.9572676399346106,123.1699176206554]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+        L.control.locate({locateOptions: {maxZoom: 19}}).addTo(map);
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+        }
+        function pop_ADMINISTRASIKECAMATAN_AR_50K_0(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    for (i in e.target._eventParents) {
+                        e.target._eventParents[i].resetStyle(e.target);
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Nama</th>\
+                        <td>' + (feature.properties['NAMOBJ'] !== null ? autolinker.link(feature.properties['NAMOBJ'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Tempat</th>\
+                        <td>' + (feature.properties['REMARK'] !== null ? autolinker.link(feature.properties['REMARK'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">FCode</th>\
+                        <td>' + (feature.properties['FCODE'] !== null ? autolinker.link(feature.properties['FCODE'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">LCode</th>\
+                        <td>' + (feature.properties['LCODE'] !== null ? autolinker.link(feature.properties['LCODE'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Wilayah</th>\
+                        <td>' + (feature.properties['WADMKK'] !== null ? autolinker.link(feature.properties['WADMKK'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['SHAPE_Leng'] !== null ? autolinker.link(feature.properties['SHAPE_Leng'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['SHAPE_Area'] !== null ? autolinker.link(feature.properties['SHAPE_Area'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_ADMINISTRASIKECAMATAN_AR_50K_0_0() {
+            return {
+                pane: 'pane_ADMINISTRASIKECAMATAN_AR_50K_0',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(190,207,80,1.0)',
+                interactive: false,
+            }
+        }
+        map.createPane('pane_ADMINISTRASIKECAMATAN_AR_50K_0');
+        map.getPane('pane_ADMINISTRASIKECAMATAN_AR_50K_0').style.zIndex = 400;
+        map.getPane('pane_ADMINISTRASIKECAMATAN_AR_50K_0').style['mix-blend-mode'] = 'normal';
+        var layer_ADMINISTRASIKECAMATAN_AR_50K_0 = new L.geoJson(json_ADMINISTRASIKECAMATAN_AR_50K_0, {
+            attribution: '',
+            interactive: false,
+            dataVar: 'json_ADMINISTRASIKECAMATAN_AR_50K_0',
+            layerName: 'layer_ADMINISTRASIKECAMATAN_AR_50K_0',
+            pane: 'pane_ADMINISTRASIKECAMATAN_AR_50K_0',
+            onEachFeature: pop_ADMINISTRASIKECAMATAN_AR_50K_0,
+            style: style_ADMINISTRASIKECAMATAN_AR_50K_0_0,
+        });
+        bounds_group.addLayer(layer_ADMINISTRASIKECAMATAN_AR_50K_0);
+        map.addLayer(layer_ADMINISTRASIKECAMATAN_AR_50K_0);
+        function pop_ADMINISTRASIKECAMATAN_LN_50K_1(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    for (i in e.target._eventParents) {
+                        e.target._eventParents[i].resetStyle(e.target);
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['FCODE'] !== null ? autolinker.link(feature.properties['FCODE'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['SHAPE_Leng'] !== null ? autolinker.link(feature.properties['SHAPE_Leng'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_ADMINISTRASIKECAMATAN_LN_50K_1_0() {
+            return {
+                pane: 'pane_ADMINISTRASIKECAMATAN_LN_50K_1',
+                opacity: 1,
+                color: 'rgba(255,158,23,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 1.0,
+                fillOpacity: 0,
+                interactive: false,
+            }
+        }
+        map.createPane('pane_ADMINISTRASIKECAMATAN_LN_50K_1');
+        map.getPane('pane_ADMINISTRASIKECAMATAN_LN_50K_1').style.zIndex = 401;
+        map.getPane('pane_ADMINISTRASIKECAMATAN_LN_50K_1').style['mix-blend-mode'] = 'normal';
+        var layer_ADMINISTRASIKECAMATAN_LN_50K_1 = new L.geoJson(json_ADMINISTRASIKECAMATAN_LN_50K_1, {
+            attribution: '',
+            interactive: false,
+            dataVar: 'json_ADMINISTRASIKECAMATAN_LN_50K_1',
+            layerName: 'layer_ADMINISTRASIKECAMATAN_LN_50K_1',
+            pane: 'pane_ADMINISTRASIKECAMATAN_LN_50K_1',
+            onEachFeature: pop_ADMINISTRASIKECAMATAN_LN_50K_1,
+            style: style_ADMINISTRASIKECAMATAN_LN_50K_1_0,
+        });
+        bounds_group.addLayer(layer_ADMINISTRASIKECAMATAN_LN_50K_1);
+        map.addLayer(layer_ADMINISTRASIKECAMATAN_LN_50K_1);
+        function pop_RUMAHSAKIT_PT_50K_2(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    for (i in e.target._eventParents) {
+                        e.target._eventParents[i].resetStyle(e.target);
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['NAMOBJ'] !== null ? autolinker.link(feature.properties['NAMOBJ'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['LCODE'] !== null ? autolinker.link(feature.properties['LCODE'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['REMARK'] !== null ? autolinker.link(feature.properties['REMARK'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_RUMAHSAKIT_PT_50K_2_0() {
+            return {
+                pane: 'pane_RUMAHSAKIT_PT_50K_2',
+                radius: 6.8,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(243,166,178,1.0)',
+                interactive: false,
+            }
+        }
+        map.createPane('pane_RUMAHSAKIT_PT_50K_2');
+        map.getPane('pane_RUMAHSAKIT_PT_50K_2').style.zIndex = 402;
+        map.getPane('pane_RUMAHSAKIT_PT_50K_2').style['mix-blend-mode'] = 'normal';
+        var layer_RUMAHSAKIT_PT_50K_2 = new L.geoJson(json_RUMAHSAKIT_PT_50K_2, {
+            attribution: '',
+            interactive: false,
+            dataVar: 'json_RUMAHSAKIT_PT_50K_2',
+            layerName: 'layer_RUMAHSAKIT_PT_50K_2',
+            pane: 'pane_RUMAHSAKIT_PT_50K_2',
+            onEachFeature: pop_RUMAHSAKIT_PT_50K_2,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_RUMAHSAKIT_PT_50K_2_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_RUMAHSAKIT_PT_50K_2);
+        map.addLayer(layer_RUMAHSAKIT_PT_50K_2);
+        function pop_PUSKESMAS_PT_50K_3(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    for (i in e.target._eventParents) {
+                        e.target._eventParents[i].resetStyle(e.target);
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['NAMOBJ'] !== null ? autolinker.link(feature.properties['NAMOBJ'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['LCODE'] !== null ? autolinker.link(feature.properties['LCODE'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['REMARK'] !== null ? autolinker.link(feature.properties['REMARK'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_PUSKESMAS_PT_50K_3_0() {
+            return {
+                pane: 'pane_PUSKESMAS_PT_50K_3',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(145,82,45,1.0)',
+                interactive: false,
+            }
+        }
+        map.createPane('pane_PUSKESMAS_PT_50K_3');
+        map.getPane('pane_PUSKESMAS_PT_50K_3').style.zIndex = 403;
+        map.getPane('pane_PUSKESMAS_PT_50K_3').style['mix-blend-mode'] = 'normal';
+        var layer_PUSKESMAS_PT_50K_3 = new L.geoJson(json_PUSKESMAS_PT_50K_3, {
+            attribution: '',
+            interactive: false,
+            dataVar: 'json_PUSKESMAS_PT_50K_3',
+            layerName: 'layer_PUSKESMAS_PT_50K_3',
+            pane: 'pane_PUSKESMAS_PT_50K_3',
+            onEachFeature: pop_PUSKESMAS_PT_50K_3,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_PUSKESMAS_PT_50K_3_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_PUSKESMAS_PT_50K_3);
+        map.addLayer(layer_PUSKESMAS_PT_50K_3);
+            var title = new L.Control();
+            title.onAdd = function (map) {
+                this._div = L.DomUtil.create('div', 'info');
+                this.update();
+                return this._div;
+            };
+            title.update = function () {
+                this._div.innerHTML = '<h2>Peta Gorontalo</h2>';
+            };
+            title.addTo(map);
+            var abstract = new L.Control({'position':'topright'});
+            abstract.onAdd = function (map) {
+                this._div = L.DomUtil.create('div',
+                'leaflet-control abstract');
+                this._div.id = 'abstract'
+
+                    abstract.show();
+                    return this._div;
+                };
+                abstract.show = function () {
+                    this._div.classList.remove("abstract");
+                    this._div.classList.add("abstractUncollapsed");
+                    this._div.innerHTML = 'Ini adalah web yang berisi peta batas Kecamatan yang terdapat dalam kabupaten Gorontalo yang di dalamnya terdapat Puskesmas dan Rumah Sakit';
+            };
+            abstract.addTo(map);
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'<img src="legend/PUSKESMAS_PT_50K_3.png" /> PUSKESMAS_PT_50K': layer_PUSKESMAS_PT_50K_3,'<img src="legend/RUMAHSAKIT_PT_50K_2.png" /> RUMAHSAKIT_PT_50K': layer_RUMAHSAKIT_PT_50K_2,'<img src="legend/ADMINISTRASIKECAMATAN_LN_50K_1.png" /> ADMINISTRASIKECAMATAN_LN_50K': layer_ADMINISTRASIKECAMATAN_LN_50K_1,'<img src="legend/ADMINISTRASIKECAMATAN_AR_50K_0.png" /> ADMINISTRASIKECAMATAN_AR_50K': layer_ADMINISTRASIKECAMATAN_AR_50K_0,},{collapsed:false}).addTo(map);
+        setBounds();
+        var i = 0;
+        layer_ADMINISTRASIKECAMATAN_AR_50K_0.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((layer.feature.properties['NAMOBJ'] !== null?String('<div style="color: #323232; font-size: 10pt; font-family: \'Open Sans\', sans-serif;">' + layer.feature.properties['NAMOBJ']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_ADMINISTRASIKECAMATAN_AR_50K_0'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+        map.addControl(new L.Control.Search({
+            layer: layer_ADMINISTRASIKECAMATAN_AR_50K_0,
+            initial: false,
+            hideMarkerOnCollapse: true,
+            propertyName: 'NAMOBJ'}));
+        document.getElementsByClassName('search-button')[0].className +=
+         ' fa fa-binoculars';
+        var mapDiv = document.getElementById('map');
+        var row = document.createElement('div');
+        row.className="row";
+        row.id="all";
+        row.style.height = "100%";
+        var col1 = document.createElement('div');
+        col1.className="col9";
+        col1.id = "mapWindow";
+        col1.style.height = "99%";
+        col1.style.width = "80%";
+        col1.style.display = "inline-block";
+        var col2 = document.createElement('div');
+        col2.className="col3";
+        col2.id = "menu";
+        col2.style.display = "inline-block";
+        mapDiv.parentNode.insertBefore(row, mapDiv);
+        document.getElementById("all").appendChild(col1);
+        document.getElementById("all").appendChild(col2);
+        col1.appendChild(mapDiv)
+        var Filters = {"SHAPE_Area": "real","SHAPE_Leng": "real","FCODE": "str","NAMOBJ": "str","LCODE": "str","REMARK": "str","WADMKK": "str"};
+        function filterFunc() {
+          map.eachLayer(function(lyr){
+          if ("options" in lyr && "dataVar" in lyr["options"]){
+            features = this[lyr["options"]["dataVar"]].features.slice(0);
+            try{
+              for (key in Filters){
+                keyS = key.replace(/[^a-zA-Z0-9_]/g, "")
+                if (Filters[key] == "str" || Filters[key] == "bool"){
+                  var selection = [];
+                  var options = document.getElementById("sel_" + keyS).options
+                  for (var i=0; i < options.length; i++) {
+                    if (options[i].selected) selection.push(options[i].value);
+                  }
+                    try{
+                      if (key in features[0].properties){
+                        for (i = features.length - 1;
+                          i >= 0; --i){
+                          if (selection.indexOf(
+                          features[i].properties[key])<0
+                          && selection.length>0) {
+                          features.splice(i,1);
+                          }
+                        }
+                      }
+                    } catch(err){
+                  }
+                }
+                if (Filters[key] == "int"){
+                  sliderVals =  document.getElementById(
+                    "div_" + keyS).noUiSlider.get();
+                  try{
+                    if (key in features[0].properties){
+                    for (i = features.length - 1; i >= 0; --i){
+                      if (parseInt(features[i].properties[key])
+                          < sliderVals[0]
+                          || parseInt(features[i].properties[key])
+                          > sliderVals[1]){
+                            features.splice(i,1);
+                          }
+                        }
+                      }
+                    } catch(err){
+                    }
+                  }
+                if (Filters[key] == "real"){
+                  sliderVals =  document.getElementById(
+                    "div_" + keyS).noUiSlider.get();
+                  try{
+                    if (key in features[0].properties){
+                    for (i = features.length - 1; i >= 0; --i){
+                      if (features[i].properties[key]
+                          < sliderVals[0]
+                          || features[i].properties[key]
+                          > sliderVals[1]){
+                            features.splice(i,1);
+                          }
+                        }
+                      }
+                    } catch(err){
+                    }
+                  }
+                if (Filters[key] == "date"
+                  || Filters[key] == "datetime"
+                  || Filters[key] == "time"){
+                  try{
+                    if (key in features[0].properties){
+                      HTMLkey = key.replace(/[&\/\\#,+()$~%.'":*?<>{} ]/g, '');
+                      startdate = document.getElementById("dat_" +
+                        HTMLkey + "_date1").value.replace(" ", "T");
+                      enddate = document.getElementById("dat_" +
+                        HTMLkey + "_date2").value.replace(" ", "T");
+                      for (i = features.length - 1; i >= 0; --i){
+                        if (features[i].properties[key] < startdate
+                          || features[i].properties[key] > enddate){
+                          features.splice(i,1);
+                        }
+                      }
+                    }
+                  } catch(err){
+                  }
+                }
+              }
+            } catch(err){
+            }
+          this[lyr["options"]["layerName"]].clearLayers();
+          this[lyr["options"]["layerName"]].addData(features);
+        var i = 0;
+        layer_ADMINISTRASIKECAMATAN_AR_50K_0.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((layer.feature.properties['NAMOBJ'] !== null?String('<div style="color: #323232; font-size: 10pt; font-family: \'Open Sans\', sans-serif;">' + layer.feature.properties['NAMOBJ']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_ADMINISTRASIKECAMATAN_AR_50K_0'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+          }
+          })
+        }
+            document.getElementById("menu").appendChild(
+                document.createElement("div"));
+            var div_SHAPE_Area = document.createElement("div");
+            div_SHAPE_Area.id = "div_SHAPE_Area";
+            div_SHAPE_Area.className = "slider";
+            document.getElementById("menu").appendChild(div_SHAPE_Area);
+            var lab_SHAPE_Area = document.createElement('div');
+            lab_SHAPE_Area.innerHTML  = 'SHAPE_Area: <span id="val_SHAPE_Area"></span>';
+            lab_SHAPE_Area.className = 'filterlabel';
+            document.getElementById("menu").appendChild(lab_SHAPE_Area);
+            var reset_SHAPE_Area = document.createElement('div');
+            reset_SHAPE_Area.innerHTML = 'clear filter';
+            reset_SHAPE_Area.className = 'filterlabel';
+            lab_SHAPE_Area.className = 'filterlabel';
+            reset_SHAPE_Area.onclick = function() {
+                sel_SHAPE_Area.noUiSlider.reset();
+            };
+            document.getElementById("menu").appendChild(reset_SHAPE_Area);
+            var sel_SHAPE_Area = document.getElementById('div_SHAPE_Area');
+            noUiSlider.create(sel_SHAPE_Area, {
+                connect: true,
+                start: [0.000378346780083, 0.0322129685933],
+                range: {
+                min: 0.000378346780083,
+                max: 0.0322129685933
+                }
+            });
+            sel_SHAPE_Area.noUiSlider.on('update', function (values) {
+            val_SHAPE_Area = document.getElementById('val_SHAPE_Area');
+            val_SHAPE_Area.innerHTML = values.join(' - ');
+                filterFunc()
+            });
+            document.getElementById("menu").appendChild(
+                document.createElement("div"));
+            var div_SHAPE_Leng = document.createElement("div");
+            div_SHAPE_Leng.id = "div_SHAPE_Leng";
+            div_SHAPE_Leng.className = "slider";
+            document.getElementById("menu").appendChild(div_SHAPE_Leng);
+            var lab_SHAPE_Leng = document.createElement('div');
+            lab_SHAPE_Leng.innerHTML  = 'SHAPE_Leng: <span id="val_SHAPE_Leng"></span>';
+            lab_SHAPE_Leng.className = 'filterlabel';
+            document.getElementById("menu").appendChild(lab_SHAPE_Leng);
+            var reset_SHAPE_Leng = document.createElement('div');
+            reset_SHAPE_Leng.innerHTML = 'clear filter';
+            reset_SHAPE_Leng.className = 'filterlabel';
+            lab_SHAPE_Leng.className = 'filterlabel';
+            reset_SHAPE_Leng.onclick = function() {
+                sel_SHAPE_Leng.noUiSlider.reset();
+            };
+            document.getElementById("menu").appendChild(reset_SHAPE_Leng);
+            var sel_SHAPE_Leng = document.getElementById('div_SHAPE_Leng');
+            noUiSlider.create(sel_SHAPE_Leng, {
+                connect: true,
+                start: [0.00012173331415, 1.07573105323],
+                range: {
+                min: 0.00012173331415,
+                max: 1.07573105323
+                }
+            });
+            sel_SHAPE_Leng.noUiSlider.on('update', function (values) {
+            val_SHAPE_Leng = document.getElementById('val_SHAPE_Leng');
+            val_SHAPE_Leng.innerHTML = values.join(' - ');
+                filterFunc()
+            });
+            document.getElementById("menu").appendChild(
+                document.createElement("div"));
+            var div_FCODE = document.createElement('div');
+            div_FCODE.id = "div_FCODE";
+            div_FCODE.className= "filterselect";
+            document.getElementById("menu").appendChild(div_FCODE);
+            sel_FCODE = document.createElement('select');
+            sel_FCODE.multiple = true;
+            sel_FCODE.size = 2;
+            sel_FCODE.id = "sel_FCODE";
+            var FCODE_options_str = "<option value='' unselected></option>";
+            sel_FCODE.onchange = function(){filterFunc()};
+            FCODE_options_str  += '<option value="NULL">NULL</option>';
+            FCODE_options_str  += '<option value="BA02040040">BA02040040</option>';
+            sel_FCODE.innerHTML = FCODE_options_str;
+            div_FCODE.appendChild(sel_FCODE);
+            var lab_FCODE = document.createElement('div');
+            lab_FCODE.innerHTML = 'FCODE';
+            lab_FCODE.className = 'filterlabel';
+            div_FCODE.appendChild(lab_FCODE);
+            var reset_FCODE = document.createElement('div');
+            reset_FCODE.innerHTML = 'clear filter';
+            reset_FCODE.className = 'filterlabel';
+            reset_FCODE.onclick = function() {
+                var options = document.getElementById("sel_FCODE").options;
+                for (var i=0; i < options.length; i++) {
+                    options[i].selected = false;
+                }
+                filterFunc();
+            };
+            div_FCODE.appendChild(reset_FCODE);
+            document.getElementById("menu").appendChild(
+                document.createElement("div"));
+            var div_NAMOBJ = document.createElement('div');
+            div_NAMOBJ.id = "div_NAMOBJ";
+            div_NAMOBJ.className= "filterselect";
+            document.getElementById("menu").appendChild(div_NAMOBJ);
+            sel_NAMOBJ = document.createElement('select');
+            sel_NAMOBJ.multiple = true;
+            sel_NAMOBJ.size = 10;
+            sel_NAMOBJ.id = "sel_NAMOBJ";
+            var NAMOBJ_options_str = "<option value='' unselected></option>";
+            sel_NAMOBJ.onchange = function(){filterFunc()};
+            NAMOBJ_options_str  += '<option value="NULL">NULL</option>';
+            NAMOBJ_options_str  += '<option value="Anggrek">Anggrek</option>';
+            NAMOBJ_options_str  += '<option value="Asparaga">Asparaga</option>';
+            NAMOBJ_options_str  += '<option value="Batudaa">Batudaa</option>';
+            NAMOBJ_options_str  += '<option value="Batudaa Pantai">Batudaa Pantai</option>';
+            NAMOBJ_options_str  += '<option value="Bilato">Bilato</option>';
+            NAMOBJ_options_str  += '<option value="Biluhu">Biluhu</option>';
+            NAMOBJ_options_str  += '<option value="Boliyohuto">Boliyohuto</option>';
+            NAMOBJ_options_str  += '<option value="Bongomeme">Bongomeme</option>';
+            NAMOBJ_options_str  += '<option value="Bulango Selatan">Bulango Selatan</option>';
+            NAMOBJ_options_str  += '<option value="Bulango Utara">Bulango Utara</option>';
+            NAMOBJ_options_str  += '<option value="Danau">Danau</option>';
+            NAMOBJ_options_str  += '<option value="Dungaliyo">Dungaliyo</option>';
+            NAMOBJ_options_str  += '<option value="Dungingi">Dungingi</option>';
+            NAMOBJ_options_str  += '<option value="Gentuma Raya">Gentuma Raya</option>';
+            NAMOBJ_options_str  += '<option value="Hulonthalangi">Hulonthalangi</option>';
+            NAMOBJ_options_str  += '<option value="Kota Barat">Kota Barat</option>';
+            NAMOBJ_options_str  += '<option value="Kwandang">Kwandang</option>';
+            NAMOBJ_options_str  += '<option value="Limboto">Limboto</option>';
+            NAMOBJ_options_str  += '<option value="Limboto Barat">Limboto Barat</option>';
+            NAMOBJ_options_str  += '<option value="Medical Cenntre Tibawa">Medical Cenntre Tibawa</option>';
+            NAMOBJ_options_str  += '<option value="Monano">Monano</option>';
+            NAMOBJ_options_str  += '<option value="Mootilango">Mootilango</option>';
+            NAMOBJ_options_str  += '<option value="PUSTU Desa Pangahu">PUSTU Desa Pangahu</option>';
+            NAMOBJ_options_str  += '<option value="Paguyaman">Paguyaman</option>';
+            NAMOBJ_options_str  += '<option value="Pondok Bersalin Desa Tinelo">Pondok Bersalin Desa Tinelo</option>';
+            NAMOBJ_options_str  += '<option value="Pondok Bersalin Siti Maryam">Pondok Bersalin Siti Maryam</option>';
+            NAMOBJ_options_str  += '<option value="Poskesdes">Poskesdes</option>';
+            NAMOBJ_options_str  += '<option value="Poskesdes Ayumolingo">Poskesdes Ayumolingo</option>';
+            NAMOBJ_options_str  += '<option value="Poskesdes Bakti">Poskesdes Bakti</option>';
+            NAMOBJ_options_str  += '<option value="Poskesdes Batudaa">Poskesdes Batudaa</option>';
+            NAMOBJ_options_str  += '<option value="Poskesdes Binajaya">Poskesdes Binajaya</option>';
+            NAMOBJ_options_str  += '<option value="Poskesdes Buhu">Poskesdes Buhu</option>';
+            NAMOBJ_options_str  += '<option value="Poskesdes Desa Bulota">Poskesdes Desa Bulota</option>';
+            NAMOBJ_options_str  += '<option value="Poskesdes Desa Ilohungayo">Poskesdes Desa Ilohungayo</option>';
+            NAMOBJ_options_str  += '<option value="Poskesdes Desa Molas">Poskesdes Desa Molas</option>';
+            NAMOBJ_options_str  += '<option value="Poskesdes Desa Molohu">Poskesdes Desa Molohu</option>';
+            NAMOBJ_options_str  += '<option value="Poskesdes Desa Molowahu">Poskesdes Desa Molowahu</option>';
+            NAMOBJ_options_str  += '<option value="Poskesdes Desa Satria">Poskesdes Desa Satria</option>';
+            NAMOBJ_options_str  += '<option value="Poskesdes Desa Timuato">Poskesdes Desa Timuato</option>';
+            NAMOBJ_options_str  += '<option value="Poskesdes Desa Tinelo">Poskesdes Desa Tinelo</option>';
+            NAMOBJ_options_str  += '<option value="Poskesdes Desa Tualango">Poskesdes Desa Tualango</option>';
+            NAMOBJ_options_str  += '<option value="Poskesdes Huntulohulawa">Poskesdes Huntulohulawa</option>';
+            NAMOBJ_options_str  += '<option value="Poskesdes Hutadaa">Poskesdes Hutadaa</option>';
+            NAMOBJ_options_str  += '<option value="Poskesdes Lakea">Poskesdes Lakea</option>';
+            NAMOBJ_options_str  += '<option value="Poskesdes Luwoo">Poskesdes Luwoo</option>';
+            NAMOBJ_options_str  += '<option value="Poskesdes Modelidu">Poskesdes Modelidu</option>';
+            NAMOBJ_options_str  += '<option value="Poskesdes Montilango">Poskesdes Montilango</option>';
+            NAMOBJ_options_str  += '<option value="Poskesdes Motoduto">Poskesdes Motoduto</option>';
+            NAMOBJ_options_str  += '<option value="Poskesdes Olobua">Poskesdes Olobua</option>';
+            NAMOBJ_options_str  += '<option value="Poskesdes Pantungo Desa Pantungo">Poskesdes Pantungo Desa Pantungo</option>';
+            NAMOBJ_options_str  += '<option value="Posmaldes Polohungo">Posmaldes Polohungo</option>';
+            NAMOBJ_options_str  += '<option value="Posyandu Dahlia Ii">Posyandu Dahlia Ii</option>';
+            NAMOBJ_options_str  += '<option value="Posyandu Manggis">Posyandu Manggis</option>';
+            NAMOBJ_options_str  += '<option value="Posyandu Tulip - Tpk Mustik">Posyandu Tulip - Tpk Mustik</option>';
+            NAMOBJ_options_str  += '<option value="Pulubala">Pulubala</option>';
+            NAMOBJ_options_str  += '<option value="Pusdu Molamahu">Pusdu Molamahu</option>';
+            NAMOBJ_options_str  += '<option value="Puskemas Hayahaya">Puskemas Hayahaya</option>';
+            NAMOBJ_options_str  += '<option value="Puskemas Pembantu Desa Daenaa">Puskemas Pembantu Desa Daenaa</option>';
+            NAMOBJ_options_str  += '<option value="Puskemas Pembatu Desa Huidu">Puskemas Pembatu Desa Huidu</option>';
+            NAMOBJ_options_str  += '<option value="Puskemas Pusto Padengu">Puskemas Pusto Padengu</option>';
+            NAMOBJ_options_str  += '<option value="Puskes Buntula">Puskes Buntula</option>';
+            NAMOBJ_options_str  += '<option value="Puskes Pt. Pg. Gorontalo">Puskes Pt. Pg. Gorontalo</option>';
+            NAMOBJ_options_str  += '<option value="Puskesdes Bulila">Puskesdes Bulila</option>';
+            NAMOBJ_options_str  += '<option value="Puskesdes Desa Dulohupa">Puskesdes Desa Dulohupa</option>';
+            NAMOBJ_options_str  += '<option value="Puskesdes Desa Luhu">Puskesdes Desa Luhu</option>';
+            NAMOBJ_options_str  += '<option value="Puskesdes Desa Pilahayanga Barat">Puskesdes Desa Pilahayanga Barat</option>';
+            NAMOBJ_options_str  += '<option value="Puskesdes Desa Pone">Puskesdes Desa Pone</option>';
+            NAMOBJ_options_str  += '<option value="Puskesdes Desa Tilote">Puskesdes Desa Tilote</option>';
+            NAMOBJ_options_str  += '<option value="Puskesdes Gandasari">Puskesdes Gandasari</option>';
+            NAMOBJ_options_str  += '<option value="Puskesdes Kelurahan Bongohulawa">Puskesdes Kelurahan Bongohulawa</option>';
+            NAMOBJ_options_str  += '<option value="Puskesmas">Puskesmas</option>';
+            NAMOBJ_options_str  += '<option value="Puskesmas Bilato">Puskesmas Bilato</option>';
+            NAMOBJ_options_str  += '<option value="Puskesmas Biluhu">Puskesmas Biluhu</option>';
+            NAMOBJ_options_str  += '<option value="Puskesmas Buhu">Puskesmas Buhu</option>';
+            NAMOBJ_options_str  += '<option value="Puskesmas Bululi">Puskesmas Bululi</option>';
+            NAMOBJ_options_str  += '<option value="Puskesmas Desa Lauwonu">Puskesmas Desa Lauwonu</option>';
+            NAMOBJ_options_str  += '<option value="Puskesmas Dungliyo">Puskesmas Dungliyo</option>';
+            NAMOBJ_options_str  += '<option value="Puskesmas Global Boliyohuto">Puskesmas Global Boliyohuto</option>';
+            NAMOBJ_options_str  += '<option value="Puskesmas Global Mongolato">Puskesmas Global Mongolato</option>';
+            NAMOBJ_options_str  += '<option value="Puskesmas Global Tibawa">Puskesmas Global Tibawa</option>';
+            NAMOBJ_options_str  += '<option value="Puskesmas Kecamatan Batudaa">Puskesmas Kecamatan Batudaa</option>';
+            NAMOBJ_options_str  += '<option value="Puskesmas Limboto Bara Tyosoneg">Puskesmas Limboto Bara Tyosoneg</option>';
+            NAMOBJ_options_str  += '<option value="Puskesmas Limboto Hepuhulawa">Puskesmas Limboto Hepuhulawa</option>';
+            NAMOBJ_options_str  += '<option value="Puskesmas Mohiyolo">Puskesmas Mohiyolo</option>';
+            NAMOBJ_options_str  += '<option value="Puskesmas Molopatodu">Puskesmas Molopatodu</option>';
+            NAMOBJ_options_str  += '<option value="Puskesmas Mootilongo">Puskesmas Mootilongo</option>';
+            NAMOBJ_options_str  += '<option value="Puskesmas Pembantu">Puskesmas Pembantu</option>';
+            NAMOBJ_options_str  += '<option value="Puskesmas Pembantu Desa Datahu">Puskesmas Pembantu Desa Datahu</option>';
+            NAMOBJ_options_str  += '<option value="Puskesmas Pembantu Desa Tunggulo">Puskesmas Pembantu Desa Tunggulo</option>';
+            NAMOBJ_options_str  += '<option value="Puskesmas Pembantu Kelurahan Bulota">Puskesmas Pembantu Kelurahan Bulota</option>';
+            NAMOBJ_options_str  += '<option value="Puskesmas Pembantu Kelurahan Hunggalawa">Puskesmas Pembantu Kelurahan Hunggalawa</option>';
+            NAMOBJ_options_str  += '<option value="Puskesmas Pembantu Labanu">Puskesmas Pembantu Labanu</option>';
+            NAMOBJ_options_str  += '<option value="Puskesmas Pulubala">Puskesmas Pulubala</option>';
+            NAMOBJ_options_str  += '<option value="Puskesmas Tabango">Puskesmas Tabango</option>';
+            NAMOBJ_options_str  += '<option value="Puskesmas Tilote">Puskesmas Tilote</option>';
+            NAMOBJ_options_str  += '<option value="Puskesmas Tuladengi">Puskesmas Tuladengi</option>';
+            NAMOBJ_options_str  += '<option value="Puspu Sidoharjo">Puspu Sidoharjo</option>';
+            NAMOBJ_options_str  += '<option value="Pustu">Pustu</option>';
+            NAMOBJ_options_str  += '<option value="Pustu Biyonga">Pustu Biyonga</option>';
+            NAMOBJ_options_str  += '<option value="Pustu Desa Bongo">Pustu Desa Bongo</option>';
+            NAMOBJ_options_str  += '<option value="Pustu Desa Bunggalo">Pustu Desa Bunggalo</option>';
+            NAMOBJ_options_str  += '<option value="Pustu Desa Hulawa">Pustu Desa Hulawa</option>';
+            NAMOBJ_options_str  += '<option value="Pustu Desa Lupoyo">Pustu Desa Lupoyo</option>';
+            NAMOBJ_options_str  += '<option value="Pustu Desa Pentadio Barat">Pustu Desa Pentadio Barat</option>';
+            NAMOBJ_options_str  += '<option value="Pustu Desa Pentadio Timur">Pustu Desa Pentadio Timur</option>';
+            NAMOBJ_options_str  += '<option value="Pustu Desa Ulapato A">Pustu Desa Ulapato A</option>';
+            NAMOBJ_options_str  += '<option value="Pustu Dulomo">Pustu Dulomo</option>';
+            NAMOBJ_options_str  += '<option value="Pustu Dusun Pemukiman">Pustu Dusun Pemukiman</option>';
+            NAMOBJ_options_str  += '<option value="Pustu Ilomangga">Pustu Ilomangga</option>';
+            NAMOBJ_options_str  += '<option value="Pustu Molalahu">Pustu Molalahu</option>';
+            NAMOBJ_options_str  += '<option value="Pustu Talumupato">Pustu Talumupato</option>';
+            NAMOBJ_options_str  += '<option value="Pustu Tenggela">Pustu Tenggela</option>';
+            NAMOBJ_options_str  += '<option value="Rsu Dr Mam Syurmohammaddunda">Rsu Dr Mam Syurmohammaddunda</option>';
+            NAMOBJ_options_str  += '<option value="Rsud Dr Mm Dunda Unit Gawat Inap">Rsud Dr Mm Dunda Unit Gawat Inap</option>';
+            NAMOBJ_options_str  += '<option value="Rumah Sakit Suka Makmur">Rumah Sakit Suka Makmur</option>';
+            NAMOBJ_options_str  += '<option value="Sipatana">Sipatana</option>';
+            NAMOBJ_options_str  += '<option value="Sumalata">Sumalata</option>';
+            NAMOBJ_options_str  += '<option value="Sumalata Timur">Sumalata Timur</option>';
+            NAMOBJ_options_str  += '<option value="Tabongo">Tabongo</option>';
+            NAMOBJ_options_str  += '<option value="Talaga Jaya">Talaga Jaya</option>';
+            NAMOBJ_options_str  += '<option value="Telaga">Telaga</option>';
+            NAMOBJ_options_str  += '<option value="Telaga Biru">Telaga Biru</option>';
+            NAMOBJ_options_str  += '<option value="Tibawa">Tibawa</option>';
+            NAMOBJ_options_str  += '<option value="Tilango">Tilango</option>';
+            NAMOBJ_options_str  += '<option value="Tolangohula">Tolangohula</option>';
+            NAMOBJ_options_str  += '<option value="Wonosari">Wonosari</option>';
+            NAMOBJ_options_str  += '<option value="Yayasan Kesehatan Averroes">Yayasan Kesehatan Averroes</option>';
+            sel_NAMOBJ.innerHTML = NAMOBJ_options_str;
+            div_NAMOBJ.appendChild(sel_NAMOBJ);
+            var lab_NAMOBJ = document.createElement('div');
+            lab_NAMOBJ.innerHTML = 'NAMOBJ';
+            lab_NAMOBJ.className = 'filterlabel';
+            div_NAMOBJ.appendChild(lab_NAMOBJ);
+            var reset_NAMOBJ = document.createElement('div');
+            reset_NAMOBJ.innerHTML = 'clear filter';
+            reset_NAMOBJ.className = 'filterlabel';
+            reset_NAMOBJ.onclick = function() {
+                var options = document.getElementById("sel_NAMOBJ").options;
+                for (var i=0; i < options.length; i++) {
+                    options[i].selected = false;
+                }
+                filterFunc();
+            };
+            div_NAMOBJ.appendChild(reset_NAMOBJ);
+            document.getElementById("menu").appendChild(
+                document.createElement("div"));
+            var div_LCODE = document.createElement('div');
+            div_LCODE.id = "div_LCODE";
+            div_LCODE.className= "filterselect";
+            document.getElementById("menu").appendChild(div_LCODE);
+            sel_LCODE = document.createElement('select');
+            sel_LCODE.multiple = true;
+            sel_LCODE.size = 3;
+            sel_LCODE.id = "sel_LCODE";
+            var LCODE_options_str = "<option value='' unselected></option>";
+            sel_LCODE.onchange = function(){filterFunc()};
+            LCODE_options_str  += '<option value="NULL">NULL</option>';
+            LCODE_options_str  += '<option value="BA0080">BA0080</option>';
+            LCODE_options_str  += '<option value="GI0020">GI0020</option>';
+            sel_LCODE.innerHTML = LCODE_options_str;
+            div_LCODE.appendChild(sel_LCODE);
+            var lab_LCODE = document.createElement('div');
+            lab_LCODE.innerHTML = 'LCODE';
+            lab_LCODE.className = 'filterlabel';
+            div_LCODE.appendChild(lab_LCODE);
+            var reset_LCODE = document.createElement('div');
+            reset_LCODE.innerHTML = 'clear filter';
+            reset_LCODE.className = 'filterlabel';
+            reset_LCODE.onclick = function() {
+                var options = document.getElementById("sel_LCODE").options;
+                for (var i=0; i < options.length; i++) {
+                    options[i].selected = false;
+                }
+                filterFunc();
+            };
+            div_LCODE.appendChild(reset_LCODE);
+            document.getElementById("menu").appendChild(
+                document.createElement("div"));
+            var div_REMARK = document.createElement('div');
+            div_REMARK.id = "div_REMARK";
+            div_REMARK.className= "filterselect";
+            document.getElementById("menu").appendChild(div_REMARK);
+            sel_REMARK = document.createElement('select');
+            sel_REMARK.multiple = true;
+            sel_REMARK.size = 6;
+            sel_REMARK.id = "sel_REMARK";
+            var REMARK_options_str = "<option value='' unselected></option>";
+            sel_REMARK.onchange = function(){filterFunc()};
+            REMARK_options_str  += '<option value="NULL">NULL</option>';
+            REMARK_options_str  += '<option value="Danau">Danau</option>';
+            REMARK_options_str  += '<option value="Puskesmas/Puskesmas Pembantu">Puskesmas/Puskesmas Pembantu</option>';
+            REMARK_options_str  += '<option value="Rumah Sakit Khusus">Rumah Sakit Khusus</option>';
+            REMARK_options_str  += '<option value="Rumah Sakit Umum">Rumah Sakit Umum</option>';
+            REMARK_options_str  += '<option value="Wilayah Administrasi Kecamatan">Wilayah Administrasi Kecamatan</option>';
+            sel_REMARK.innerHTML = REMARK_options_str;
+            div_REMARK.appendChild(sel_REMARK);
+            var lab_REMARK = document.createElement('div');
+            lab_REMARK.innerHTML = 'REMARK';
+            lab_REMARK.className = 'filterlabel';
+            div_REMARK.appendChild(lab_REMARK);
+            var reset_REMARK = document.createElement('div');
+            reset_REMARK.innerHTML = 'clear filter';
+            reset_REMARK.className = 'filterlabel';
+            reset_REMARK.onclick = function() {
+                var options = document.getElementById("sel_REMARK").options;
+                for (var i=0; i < options.length; i++) {
+                    options[i].selected = false;
+                }
+                filterFunc();
+            };
+            div_REMARK.appendChild(reset_REMARK);
+            document.getElementById("menu").appendChild(
+                document.createElement("div"));
+            var div_WADMKK = document.createElement('div');
+            div_WADMKK.id = "div_WADMKK";
+            div_WADMKK.className= "filterselect";
+            document.getElementById("menu").appendChild(div_WADMKK);
+            sel_WADMKK = document.createElement('select');
+            sel_WADMKK.multiple = true;
+            sel_WADMKK.size = 6;
+            sel_WADMKK.id = "sel_WADMKK";
+            var WADMKK_options_str = "<option value='' unselected></option>";
+            sel_WADMKK.onchange = function(){filterFunc()};
+            WADMKK_options_str  += '<option value="Boalemo">Boalemo</option>';
+            WADMKK_options_str  += '<option value="Bone Bolango">Bone Bolango</option>';
+            WADMKK_options_str  += '<option value="Danau">Danau</option>';
+            WADMKK_options_str  += '<option value="Gorontalo">Gorontalo</option>';
+            WADMKK_options_str  += '<option value="Gorontalo Utara">Gorontalo Utara</option>';
+            WADMKK_options_str  += '<option value="Kota Gorontalo">Kota Gorontalo</option>';
+            sel_WADMKK.innerHTML = WADMKK_options_str;
+            div_WADMKK.appendChild(sel_WADMKK);
+            var lab_WADMKK = document.createElement('div');
+            lab_WADMKK.innerHTML = 'WADMKK';
+            lab_WADMKK.className = 'filterlabel';
+            div_WADMKK.appendChild(lab_WADMKK);
+            var reset_WADMKK = document.createElement('div');
+            reset_WADMKK.innerHTML = 'clear filter';
+            reset_WADMKK.className = 'filterlabel';
+            reset_WADMKK.onclick = function() {
+                var options = document.getElementById("sel_WADMKK").options;
+                for (var i=0; i < options.length; i++) {
+                    options[i].selected = false;
+                }
+                filterFunc();
+            };
+            div_WADMKK.appendChild(reset_WADMKK);
+        resetLabels([layer_ADMINISTRASIKECAMATAN_AR_50K_0,layer_ADMINISTRASIKECAMATAN_LN_50K_1]);
+        map.on("zoomend", function(){
+            resetLabels([layer_ADMINISTRASIKECAMATAN_AR_50K_0,layer_ADMINISTRASIKECAMATAN_LN_50K_1]);
+        });
+        map.on("layeradd", function(){
+            resetLabels([layer_ADMINISTRASIKECAMATAN_AR_50K_0,layer_ADMINISTRASIKECAMATAN_LN_50K_1]);
+        });
+        map.on("layerremove", function(){
+            resetLabels([layer_ADMINISTRASIKECAMATAN_AR_50K_0,layer_ADMINISTRASIKECAMATAN_LN_50K_1]);
+        });
+        </script>
+    </body>
+</html>
